@@ -17,6 +17,9 @@ A full-stack web application enabling users to connect, offer, and request skill
 -   [Database Schema](#database-schema)
 -   [Future Improvements](#future-improvements)
 
+## Probelms
+The request page is not working properly
+
 ## Description
 
 The Skill Swap Platform is designed to foster a community where individuals can exchange knowledge and skills. Users can create profiles, list skills they can offer, and skills they wish to learn. They can browse other users' profiles, send swap requests, and provide feedback on completed swaps. An administrative interface allows for user management, monitoring swap requests, and platform-wide announcements.
