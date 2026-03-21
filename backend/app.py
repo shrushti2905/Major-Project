@@ -21,6 +21,14 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
 mongo = PyMongo(app)
 jwt = JWTManager(app)
 
+@app.route('/')
+def index():
+    return jsonify({
+        "message": "SkillSwap Python API is running",
+        "status": "online",
+        "frontend_port": 5173
+    }), 200
+
 # --- AUTH ROUTES ---
 
 @app.route('/api/auth/signup', methods=['POST'])
@@ -69,6 +77,7 @@ def login():
         'token': token,
         'user': {
             'id': str(user['_id']),
+            '_id': str(user['_id']),
             'name': user['name'],
             'email': user['email'],
             'role': user['role']
@@ -121,6 +130,7 @@ def browse_users():
     }, {'password': 0}))
     
     for user in users:
+        user['id'] = str(user['_id'])
         user['_id'] = str(user['_id'])
         
     return jsonify(users), 200
@@ -132,11 +142,24 @@ def browse_users():
 def send_request():
     user_identity = get_jwt_identity()
     sender_id = user_identity['id']
+    sender_role = user_identity['role']
     data = request.get_json()
+    
+    if sender_role == 'admin':
+        return jsonify({'message': 'Admins cannot participate in skill swaps'}), 403
+        
+    receiver_id = data.get('receiverId')
+    receiver = mongo.db.users.find_one({'_id': ObjectId(receiver_id)})
+    
+    if not receiver:
+        return jsonify({'message': 'Receiver not found'}), 404
+        
+    if receiver.get('role') == 'admin':
+        return jsonify({'message': 'Cannot send requests to administrators'}), 403
     
     new_request = {
         'senderId': ObjectId(sender_id),
-        'receiverId': ObjectId(data.get('receiverId')),
+        'receiverId': ObjectId(receiver_id),
         'skillOffered': data.get('skillOffered'),
         'skillRequested': data.get('skillRequested'),
         'status': 'pending',
@@ -236,6 +259,14 @@ def admin_delete_user(user_id):
         '$or': [{'senderId': ObjectId(user_id)}, {'receiverId': ObjectId(user_id)}]
     })
     return jsonify({'message': 'User deleted'}), 200
+
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({
+        "error": "Not Found",
+        "message": "The requested URL was not found on the API server. If you are trying to access the website, please use the frontend URL (typically http://localhost:5173).",
+        "path": request.path
+    }), 404
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

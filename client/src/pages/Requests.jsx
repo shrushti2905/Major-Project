@@ -115,7 +115,7 @@ const Requests = () => {
                 </div>
 
                 {/* Actions */}
-                {r.status === 'pending' && r.receiverId._id === user.id && (
+                {r.status === 'pending' && (r.receiverId._id === user.id || r.receiverId.id === user.id) && (
                   <div className="flex flex-row md:flex-col gap-3 w-full md:w-auto">
                     <button 
                       onClick={() => handleUpdateStatus(r._id, 'accepted')}

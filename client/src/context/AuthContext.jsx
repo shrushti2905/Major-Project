@@ -20,7 +20,10 @@ export const AuthProvider = ({ children }) => {
   const fetchProfile = async () => {
     try {
       const res = await axios.get('/api/users/profile');
-      setUser(res.data);
+      const userData = res.data;
+      // Normalize ID
+      if (userData._id && !userData.id) userData.id = userData._id;
+      setUser(userData);
     } catch (err) {
       console.error('Fetch profile error:', err);
       localStorage.removeItem('token');
@@ -34,7 +37,10 @@ export const AuthProvider = ({ children }) => {
     const res = await axios.post('/api/auth/login', { email, password });
     localStorage.setItem('token', res.data.token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-    setUser(res.data.user);
+    const userData = res.data.user;
+    // Normalize ID
+    if (userData._id && !userData.id) userData.id = userData._id;
+    setUser(userData);
   };
 
   const logout = () => {

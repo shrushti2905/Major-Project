@@ -54,8 +54,8 @@ const Home = () => {
     </div>
   );
 
-  const pendingRequests = requests.filter(r => r.status === 'pending' && r.receiverId?._id === user.id);
-  const sentRequests = requests.filter(r => r.senderId?._id === user.id);
+  const pendingRequests = requests.filter(r => r.status === 'pending' && (r.receiverId?._id === user.id || r.receiverId?.id === user.id));
+  const sentRequests = requests.filter(r => r.senderId?._id === user.id || r.senderId?.id === user.id);
 
   return (
     <div className="space-y-10 pb-20">

@@ -37,6 +37,20 @@ const PrivateRoute = ({ children }) => {
   return user ? children : <Navigate to="/login" />;
 };
 
+const AdminRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  if (loading) return null;
+  if (!user || user.role !== 'admin') return <Navigate to="/" />;
+  return children;
+};
+
+const UserRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  if (loading) return null;
+  if (!user || user.role !== 'user') return <Navigate to="/admin" />;
+  return children;
+};
+
 const Layout = ({ children }) => {
   const { user, logout } = useContext(AuthContext);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -163,34 +177,50 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          
+          {/* User Specific Routes */}
           <Route path="/" element={
             <PrivateRoute>
-              <Layout><Home /></Layout>
+              <UserRoute>
+                <Layout><Home /></Layout>
+              </UserRoute>
             </PrivateRoute>
           } />
           <Route path="/discover" element={
             <PrivateRoute>
-              <Layout><Dashboard /></Layout>
-            </PrivateRoute>
-          } />
-          <Route path="/profile" element={
-            <PrivateRoute>
-              <Layout><Profile /></Layout>
+              <UserRoute>
+                <Layout><Dashboard /></Layout>
+              </UserRoute>
             </PrivateRoute>
           } />
           <Route path="/requests" element={
             <PrivateRoute>
-              <Layout><Requests /></Layout>
+              <UserRoute>
+                <Layout><Requests /></Layout>
+              </UserRoute>
             </PrivateRoute>
           } />
           <Route path="/chat" element={
             <PrivateRoute>
-              <Layout><Chat /></Layout>
+              <UserRoute>
+                <Layout><Chat /></Layout>
+              </UserRoute>
             </PrivateRoute>
           } />
+
+          {/* Admin Specific Routes */}
           <Route path="/admin" element={
             <PrivateRoute>
-              <Layout><AdminDashboard /></Layout>
+              <AdminRoute>
+                <Layout><AdminDashboard /></Layout>
+              </AdminRoute>
+            </PrivateRoute>
+          } />
+
+          {/* Common Routes */}
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Layout><Profile /></Layout>
             </PrivateRoute>
           } />
         </Routes>
