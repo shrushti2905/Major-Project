@@ -1,0 +1,309 @@
+Create a complete, professional full-stack web application called "SkillSwap Platform" using Python as the backend.
+
+IMPORTANT:
+- Use Python (FastAPI) for backend
+- Use React + Vite + Tailwind CSS for frontend
+- Use MongoDB as the database
+- Do NOT use Node.js backend
+- Do NOT create any HR dashboard or unrelated project
+- This project is ONLY the SkillSwap Platform
+- Ensure clean, modular, production-ready code
+- Fix all errors automatically during development
+
+--------------------------------------------------
+PROJECT STRUCTURE
+--------------------------------------------------
+
+Create the following clean folder structure:
+
+skillswap-platform/
+│
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── database.py
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   └── utils/
+│   ├── requirements.txt
+│   └── .env
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── index.html
+│   └── vite.config.js
+│
+└── README.md
+
+--------------------------------------------------
+BACKEND REQUIREMENTS (Python FastAPI)
+--------------------------------------------------
+
+Use:
+
+FastAPI
+MongoDB
+Motor (async MongoDB driver)
+JWT Authentication
+Pydantic
+bcrypt password hashing
+python-dotenv
+CORS middleware
+
+Create REST API endpoints.
+
+--------------------------------------------------
+DATABASE MODELS (MongoDB)
+--------------------------------------------------
+
+User Model:
+
+- id
+- name
+- email
+- password (hashed)
+- role (admin / user)
+- skillsOffered (array)
+- skillsWanted (array)
+- bio
+- location
+- profileImage
+- isBlocked
+- createdAt
+
+Request Model:
+
+- id
+- senderId
+- receiverId
+- skillOffered
+- skillRequested
+- message
+- status (pending / accepted / rejected / completed)
+- createdAt
+
+Notification Model:
+
+- id
+- userId
+- message
+- isRead
+- createdAt
+
+--------------------------------------------------
+AUTHENTICATION SYSTEM
+--------------------------------------------------
+
+Implement:
+
+Signup
+Login
+Logout
+JWT token authentication
+Role-based access control
+Protected routes
+Password hashing
+Email validation
+Duplicate email prevention
+
+--------------------------------------------------
+ADMIN PANEL FEATURES
+--------------------------------------------------
+
+Create a professional admin dashboard with:
+
+View all users
+Search users
+Filter users
+Block / unblock user
+Delete user
+View all skill requests
+Approve or reject requests
+View platform statistics
+
+Admin Dashboard Widgets:
+
+Total users
+Total requests
+Active users
+Completed swaps
+
+--------------------------------------------------
+USER FEATURES
+--------------------------------------------------
+
+User Dashboard must include:
+
+Profile management
+Add skills offered
+Add skills wanted
+Edit profile
+Upload profile image
+View requests
+Send request
+Accept request
+Reject request
+Mark request completed
+Delete request
+View notifications
+
+--------------------------------------------------
+CORE FUNCTIONALITIES
+--------------------------------------------------
+
+Implement these features fully:
+
+User registration
+User login
+Skill matching
+Skill request system
+Notification system
+Admin management
+User profile management
+Role-based dashboards
+Secure API
+Real database storage
+Error handling
+Loading states
+
+--------------------------------------------------
+SMART FEATURES
+--------------------------------------------------
+
+Add advanced logic:
+
+Auto match users based on skills
+Suggest users with matching skills
+Prevent duplicate requests
+Validate forms
+Real-time UI updates
+Confirmation dialogs
+Success and error messages
+
+--------------------------------------------------
+UI / UX DESIGN REQUIREMENTS
+--------------------------------------------------
+
+Create a modern professional interface.
+
+Use:
+
+Tailwind CSS
+Responsive design
+Sidebar navigation
+Top navbar
+Cards layout
+Icons
+Hover effects
+Smooth transitions
+Clean typography
+Professional spacing
+
+Pages to create:
+
+Landing page
+Login page
+Signup page
+User dashboard
+Admin dashboard
+Profile page
+Requests page
+Notifications page
+Error page
+
+Make UI look professional, not beginner level.
+
+--------------------------------------------------
+SECURITY REQUIREMENTS
+--------------------------------------------------
+
+Implement:
+
+Password hashing
+JWT authentication
+Protected routes
+Input validation
+Error handling
+Secure API responses
+
+--------------------------------------------------
+DATABASE CONNECTION
+--------------------------------------------------
+
+Use MongoDB connection string from:
+
+.env
+
+Example:
+
+MONGODB_URI=mongodb://localhost:27017/skillswap
+JWT_SECRET=supersecretkey
+PORT=8000
+
+--------------------------------------------------
+SEED DATA
+--------------------------------------------------
+
+Automatically create:
+
+Admin user:
+
+Email:
+shrushtipatil2905@gmail.com
+
+Role:
+admin
+
+Password:
+hashed securely
+
+Also create:
+
+5 sample users
+5 sample skill requests
+
+--------------------------------------------------
+ERROR HANDLING
+--------------------------------------------------
+
+Automatically:
+
+Fix dependency errors
+Fix API errors
+Fix database errors
+Fix frontend errors
+Handle missing fields
+Show proper error messages
+
+--------------------------------------------------
+RUN COMMANDS
+--------------------------------------------------
+
+Backend:
+
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+
+Frontend:
+
+npm install
+npm run dev
+
+--------------------------------------------------
+FINAL OUTPUT REQUIREMENT
+--------------------------------------------------
+
+Generate a fully working, production-ready SkillSwap platform.
+
+All features must work.
+All buttons must work.
+All forms must submit.
+Database must store real data.
+Admin and user dashboards must be different.
+UI must look modern and professional.
+
+Do everything automatically in one run.
+Fix errors if they appear.
