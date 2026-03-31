@@ -5,11 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useLogin } from "@workspace/api-client-react";
 import { useAuth } from "@/lib/auth";
+import { useTheme } from "@/lib/theme";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Moon, Sun, Zap } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -19,6 +21,7 @@ const loginSchema = z.object({
 export default function Login() {
   const [, setLocation] = useLocation();
   const { login: setAuthToken } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const loginMutation = useLogin();
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -44,7 +47,21 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-primary">
+          <Zap className="h-5 w-5" />
+          SkillSwap
+        </Link>
+        <button
+          onClick={toggleTheme}
+          title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-muted border border-border"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </button>
+      </div>
+      <div className="flex-1 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg border-primary/10">
         <CardHeader className="text-center pb-8">
           <CardTitle className="text-3xl font-bold tracking-tight text-primary">Welcome back</CardTitle>
@@ -99,6 +116,7 @@ export default function Login() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

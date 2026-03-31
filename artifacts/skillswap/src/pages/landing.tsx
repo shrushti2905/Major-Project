@@ -1,10 +1,12 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Lightbulb, Users, Zap } from "lucide-react";
+import { ArrowRight, BookOpen, Lightbulb, Users, Zap, Moon, Sun } from "lucide-react";
 import { useAuth } from "@/lib/auth";
+import { useTheme } from "@/lib/theme";
 
 export default function Landing() {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [, setLocation] = useLocation();
 
   if (user) {
@@ -14,10 +16,20 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b border-border bg-card/60 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="font-bold text-2xl tracking-tight text-primary">SkillSwap</div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 font-bold text-2xl tracking-tight text-primary">
+            <Zap className="h-6 w-6" />
+            SkillSwap
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-muted border border-border"
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors">
               Log in
             </Link>
