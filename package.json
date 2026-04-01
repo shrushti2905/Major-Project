@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "workspace",
   "version": "0.0.0",
   "license": "MIT",
@@ -12,5 +13,18 @@
   "devDependencies": {
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"
+=======
+  "name": "skillswap-platform",
+  "version": "1.0.0",
+  "scripts": {
+    "backend": "cd backend && venv\\Scripts\\activate && python app.py",
+    "frontend": "cd client && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "seed": "cd backend && venv\\Scripts\\activate && python seed.py",
+    "install-all": "npm install && cd client && npm install && cd ../backend && python -m venv venv && venv\\Scripts\\activate && pip install -r requirements.txt"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+>>>>>>> 494cb1c046fc17c8a018241d1dadb8057351bc2c
   }
 }
